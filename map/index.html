@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h3><center>Find a Friend</center></h3>
+    <div id="map"></div>
+    <script>
+        var map;
+        var seattle;
+        //$(document).ready(function(){
+        //  var options = {
+        //        enableHighAccuracy: true,
+        //          timeout: 5000,
+        //          maximumAge: 0
+        //        };
+        //navigator.geolocation.getCurrentPosition(success, failure, options);
+        //});
+        function success(pos) {
+            var crd = pos.coords;
+            seattle = {
+                lat: crd.latitude,
+                lng: crd.longitude
+            };
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: seattle
+            });
+            var marker = new google.maps.Marker({
+                position: seattle,
+                map: map,
+            });
+        }
+
+        function failure(err) {
+            console.log(err);
+        }
+        var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        function initMap() {
+            ///var seattle = {lat: 47.6062, lng: -122.3321};
+            ///var seattle = {lat: -25.363, lng: 131.044};                                          
+            navigator.geolocation.getCurrentPosition(success, failure, options);
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArGrFbwYbb_z69cBBCZTvT4JGb8bNkFbQ&callback=initMap">
+    </script>
+</body>
+
+</html>
